@@ -1,0 +1,2061 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for AWS IoT Greengrass projects on Raspberry Pi">
+      
+      
+        <meta name="author" content="Francois Harmse">
+      
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Hardware Setup - AWS IoT Greengrass Projects</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hardware-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AWS IoT Greengrass Projects" class="md-header__button md-logo" aria-label="AWS IoT Greengrass Projects" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AWS IoT Greengrass Projects
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo" aria-label="Switch to system preference" type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/francoisharmse/aws-greengrass-raspberry-pi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AWS IoT Greengrass Projects" class="md-nav__button md-logo" aria-label="AWS IoT Greengrass Projects" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    AWS IoT Greengrass Projects
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/francoisharmse/aws-greengrass-raspberry-pi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/aws-setup.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/raspberry-pi-setup.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Projects
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ultrasonic Sensor
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Ultrasonic Sensor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#required-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pin-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pin Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pin Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hc-sr04-ultrasonic-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      HC-SR04 Ultrasonic Sensor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16x2-lcd-display-i2c" class="md-nav__link">
+    <span class="md-ellipsis">
+      16x2 LCD Display (I2C)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wiring Diagram
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wiring Diagram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#voltage-divider-for-echo-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Voltage Divider for Echo Pin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-wiring-schematic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Wiring Schematic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-prepare-the-breadboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Prepare the Breadboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-wire-the-power-supply" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Wire the Power Supply
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-wire-the-trigger-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Wire the Trigger Pin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-voltage-divider-for-echo-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create Voltage Divider for Echo Pin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-wire-the-i2c-lcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Wire the I2C LCD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-verify-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Verify Connections
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Hardware
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-i2c-lcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test I2C LCD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-ultrasonic-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Ultrasonic Sensor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lcd-not-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      LCD Not Detected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ultrasonic-sensor-not-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ultrasonic Sensor Not Working
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpio-permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPIO Permission Denied
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erratic-readings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erratic Readings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safety Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Component Code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cdk.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CDK Infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Button Listener
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Button Listener
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blinker/overview.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blinker/hardware.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blinker/code.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Component Code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blinker/deployment.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    LCD Display
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            LCD Display
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lcd/overview.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lcd/hardware.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lcd/usage.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    AWS CDK
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            AWS CDK
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cdk/overview.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cdk/thing-stack.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thing Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cdk/component-stack.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Component Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cdk/deployment-stack.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/architecture.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/iam-roles.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IAM Roles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/mqtt-topics.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MQTT Topics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#required-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pin-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pin Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pin Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hc-sr04-ultrasonic-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      HC-SR04 Ultrasonic Sensor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16x2-lcd-display-i2c" class="md-nav__link">
+    <span class="md-ellipsis">
+      16x2 LCD Display (I2C)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wiring Diagram
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wiring Diagram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#voltage-divider-for-echo-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Voltage Divider for Echo Pin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-wiring-schematic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Wiring Schematic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-prepare-the-breadboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Prepare the Breadboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-wire-the-power-supply" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Wire the Power Supply
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-wire-the-trigger-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Wire the Trigger Pin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-voltage-divider-for-echo-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create Voltage Divider for Echo Pin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-wire-the-i2c-lcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Wire the I2C LCD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-verify-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Verify Connections
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Hardware
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-i2c-lcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test I2C LCD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-ultrasonic-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Ultrasonic Sensor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lcd-not-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      LCD Not Detected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ultrasonic-sensor-not-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ultrasonic Sensor Not Working
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpio-permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPIO Permission Denied
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erratic-readings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erratic Readings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safety Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="hardware-setup">Hardware Setup<a class="headerlink" href="#hardware-setup" title="Permanent link">¶</a></h1>
+<p>This guide covers the physical wiring and hardware configuration for the ultrasonic sensor project.</p>
+<h2 id="required-components">Required Components<a class="headerlink" href="#required-components" title="Permanent link">¶</a></h2>
+<h3 id="main-components">Main Components<a class="headerlink" href="#main-components" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Raspberry Pi 4 Model B</strong> (2GB RAM minimum)</li>
+<li><strong>HC-SR04 Ultrasonic Sensor</strong></li>
+<li><strong>16x2 LCD Display with I2C Module</strong> (PCF8574)</li>
+<li><strong>MicroSD Card</strong> (16GB minimum)</li>
+<li><strong>Power Supply</strong> (5V/3A USB-C)</li>
+</ul>
+<h3 id="additional-components">Additional Components<a class="headerlink" href="#additional-components" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Breadboard</strong> (830 points recommended)</li>
+<li><strong>Jumper Wires</strong> (Male-to-Female and Male-to-Male)</li>
+<li><strong>Voltage Divider Resistors</strong> (1kΩ and 2kΩ for Echo pin)</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Voltage Warning</p>
+<p>The HC-SR04 Echo pin outputs 5V, but Raspberry Pi GPIO pins are 3.3V tolerant. You <strong>must</strong> use a voltage divider to protect your Pi!</p>
+</div>
+<h2 id="pin-configuration">Pin Configuration<a class="headerlink" href="#pin-configuration" title="Permanent link">¶</a></h2>
+<h3 id="hc-sr04-ultrasonic-sensor">HC-SR04 Ultrasonic Sensor<a class="headerlink" href="#hc-sr04-ultrasonic-sensor" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>HC-SR04 Pin</th>
+<th>Raspberry Pi Pin</th>
+<th>BCM GPIO</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Pin 2 (5V)</td>
+<td>-</td>
+<td>Power supply</td>
+</tr>
+<tr>
+<td>Trig</td>
+<td>Pin 11</td>
+<td>GPIO 17</td>
+<td>Trigger signal</td>
+</tr>
+<tr>
+<td>Echo</td>
+<td>Via Voltage Divider</td>
+<td>GPIO 18</td>
+<td>Echo signal (5V → 3.3V)</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Pin 6 (GND)</td>
+<td>-</td>
+<td>Ground</td>
+</tr>
+</tbody>
+</table>
+<h3 id="16x2-lcd-display-i2c">16x2 LCD Display (I2C)<a class="headerlink" href="#16x2-lcd-display-i2c" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>LCD I2C Pin</th>
+<th>Raspberry Pi Pin</th>
+<th>BCM GPIO</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Pin 1 (3.3V)</td>
+<td>-</td>
+<td>Power supply</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Pin 9 (GND)</td>
+<td>-</td>
+<td>Ground</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>Pin 3</td>
+<td>GPIO 2</td>
+<td>I2C Data</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>Pin 5</td>
+<td>GPIO 3</td>
+<td>I2C Clock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wiring-diagram">Wiring Diagram<a class="headerlink" href="#wiring-diagram" title="Permanent link">¶</a></h2>
+<h3 id="voltage-divider-for-echo-pin">Voltage Divider for Echo Pin<a class="headerlink" href="#voltage-divider-for-echo-pin" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>HC-SR04 Echo (5V) ──┬── 2kΩ Resistor ──┬── GPIO 18 (Pin 12)
+                    │                  │
+                    └── 1kΩ Resistor ──┴── GND
+</code></pre></div>
+<p>This creates a voltage divider: 5V × (1kΩ / (1kΩ + 2kΩ)) = 1.67V → Safe for 3.3V GPIO</p>
+<h3 id="complete-wiring-schematic">Complete Wiring Schematic<a class="headerlink" href="#complete-wiring-schematic" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Raspberry Pi 4
+┌─────────────────────────────────────┐
+│                                     │
+│  Pin 1 (3.3V) ────────────────┐    │
+│  Pin 2 (5V)   ──────────┐     │    │
+│  Pin 3 (SDA)  ──────┐   │     │    │
+│  Pin 5 (SCL)  ────┐ │   │     │    │
+│  Pin 6 (GND)  ──┐ │ │   │     │    │
+│  Pin 9 (GND)  ┐ │ │ │   │     │    │
+│  Pin 11(GPIO17)│││ │ │   │     │    │
+│  Pin 12(GPIO18)││││ │ │   │     │    │
+└────────────────┼┼┼┼─┼─┼───┼─────┼────┘
+                 │││││ │ │   │     │
+                 │││││ │ │   │     └─── LCD VCC
+                 │││││ │ │   └───────── HC-SR04 VCC
+                 │││││ │ └───────────── LCD SDA
+                 │││││ └─────────────── LCD SCL
+                 ││││└───────────────── HC-SR04 GND
+                 │││└────────────────── LCD GND
+                 ││└─────────────────── HC-SR04 Trig
+                 │└──────────────────── HC-SR04 Echo (via divider)
+                 └───────────────────── Voltage Divider GND
+</code></pre></div>
+<h2 id="step-by-step-assembly">Step-by-Step Assembly<a class="headerlink" href="#step-by-step-assembly" title="Permanent link">¶</a></h2>
+<h3 id="step-1-prepare-the-breadboard">Step 1: Prepare the Breadboard<a class="headerlink" href="#step-1-prepare-the-breadboard" title="Permanent link">¶</a></h3>
+<ol>
+<li>Place the HC-SR04 sensor on the breadboard</li>
+<li>Ensure all four pins have good contact</li>
+</ol>
+<h3 id="step-2-wire-the-power-supply">Step 2: Wire the Power Supply<a class="headerlink" href="#step-2-wire-the-power-supply" title="Permanent link">¶</a></h3>
+<ol>
+<li>Connect HC-SR04 VCC to Raspberry Pi Pin 2 (5V)</li>
+<li>Connect HC-SR04 GND to Raspberry Pi Pin 6 (GND)</li>
+<li>Connect LCD VCC to Raspberry Pi Pin 1 (3.3V)</li>
+<li>Connect LCD GND to Raspberry Pi Pin 9 (GND)</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Power Tip</p>
+<p>Use different ground pins to avoid potential ground loops</p>
+</div>
+<h3 id="step-3-wire-the-trigger-pin">Step 3: Wire the Trigger Pin<a class="headerlink" href="#step-3-wire-the-trigger-pin" title="Permanent link">¶</a></h3>
+<ol>
+<li>Connect HC-SR04 Trig pin to Raspberry Pi Pin 11 (GPIO 17)</li>
+<li>Use a Male-to-Female jumper wire</li>
+</ol>
+<h3 id="step-4-create-voltage-divider-for-echo-pin">Step 4: Create Voltage Divider for Echo Pin<a class="headerlink" href="#step-4-create-voltage-divider-for-echo-pin" title="Permanent link">¶</a></h3>
+<ol>
+<li>Connect 2kΩ resistor from HC-SR04 Echo pin to breadboard rail</li>
+<li>Connect 1kΩ resistor from the same rail to GND</li>
+<li>Connect the junction (between resistors) to Raspberry Pi Pin 12 (GPIO 18)</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Critical Step</p>
+<p>Double-check the voltage divider before powering on. Incorrect wiring can damage your Raspberry Pi!</p>
+</div>
+<h3 id="step-5-wire-the-i2c-lcd">Step 5: Wire the I2C LCD<a class="headerlink" href="#step-5-wire-the-i2c-lcd" title="Permanent link">¶</a></h3>
+<ol>
+<li>Connect LCD SDA to Raspberry Pi Pin 3 (GPIO 2)</li>
+<li>Connect LCD SCL to Raspberry Pi Pin 5 (GPIO 3)</li>
+</ol>
+<h3 id="step-6-verify-connections">Step 6: Verify Connections<a class="headerlink" href="#step-6-verify-connections" title="Permanent link">¶</a></h3>
+<p>Use a multimeter to verify:
+- No short circuits between VCC and GND
+- Voltage divider output is ~1.67V when Echo is HIGH
+- I2C connections are secure</p>
+<h2 id="testing-hardware">Testing Hardware<a class="headerlink" href="#testing-hardware" title="Permanent link">¶</a></h2>
+<h3 id="test-i2c-lcd">Test I2C LCD<a class="headerlink" href="#test-i2c-lcd" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable I2C</span>
+sudo<span class="w"> </span>raspi-config
+<span class="c1"># Interface Options → I2C → Enable</span>
+
+<span class="c1"># Detect I2C devices</span>
+i2cdetect<span class="w"> </span>-y<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<p>Expected output:
+</p><div class="highlight"><pre><span></span><code>     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- 27 -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+...
+</code></pre></div><p></p>
+<p>The LCD should appear at address <code>0x27</code> or <code>0x3F</code>.</p>
+<h3 id="test-ultrasonic-sensor">Test Ultrasonic Sensor<a class="headerlink" href="#test-ultrasonic-sensor" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">RPi.GPIO</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">GPIO</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">TRIGGER_PIN</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="n">ECHO_PIN</span> <span class="o">=</span> <span class="mi">18</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
+<span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">TRIGGER_PIN</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">ECHO_PIN</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">IN</span><span class="p">)</span>
+
+<span class="c1"># Send trigger pulse</span>
+<span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">TRIGGER_PIN</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.00001</span><span class="p">)</span>
+<span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">TRIGGER_PIN</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Wait for echo</span>
+<span class="k">while</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">ECHO_PIN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">ECHO_PIN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="mi">34300</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Distance: </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> cm"</span><span class="p">)</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<h3 id="lcd-not-detected">LCD Not Detected<a class="headerlink" href="#lcd-not-detected" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: <code>i2cdetect</code> doesn't show the LCD</p>
+<p><strong>Solutions</strong>:
+1. Check I2C is enabled: <code>sudo raspi-config</code>
+2. Verify wiring: SDA to GPIO 2, SCL to GPIO 3
+3. Try different I2C address (0x27 or 0x3F)
+4. Check power supply to LCD</p>
+<h3 id="ultrasonic-sensor-not-working">Ultrasonic Sensor Not Working<a class="headerlink" href="#ultrasonic-sensor-not-working" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: Always returns 0 or very large values</p>
+<p><strong>Solutions</strong>:
+1. Verify voltage divider is correct
+2. Check Trig pin connection to GPIO 17
+3. Ensure Echo pin voltage is safe (measure with multimeter)
+4. Try different GPIO pins and update code accordingly
+5. Check sensor is not damaged (test with Arduino first)</p>
+<h3 id="gpio-permission-denied">GPIO Permission Denied<a class="headerlink" href="#gpio-permission-denied" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: <code>RuntimeError: No access to /dev/mem</code></p>
+<p><strong>Solution</strong>:
+</p><div class="highlight"><pre><span></span><code><span class="c1"># Add user to gpio group</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>gpio<span class="w"> </span><span class="nv">$USER</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>i2c<span class="w"> </span><span class="nv">$USER</span>
+
+<span class="c1"># Reboot</span>
+sudo<span class="w"> </span>reboot
+</code></pre></div><p></p>
+<h3 id="erratic-readings">Erratic Readings<a class="headerlink" href="#erratic-readings" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: Distance readings jump around</p>
+<p><strong>Solutions</strong>:
+1. Ensure sensor is mounted firmly
+2. Keep sensor away from soft/angled surfaces
+3. Add averaging in software
+4. Check for electromagnetic interference
+5. Verify power supply is stable (use dedicated 5V source)</p>
+<h2 id="safety-considerations">Safety Considerations<a class="headerlink" href="#safety-considerations" title="Permanent link">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Electrical Safety</p>
+<ul>
+<li>Always power off before making wiring changes</li>
+<li>Double-check voltage levels before connecting</li>
+<li>Use appropriate resistors for voltage dividers</li>
+<li>Avoid touching components while powered</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">ESD Protection</p>
+<ul>
+<li>Ground yourself before handling components</li>
+<li>Store components in anti-static bags</li>
+<li>Work on an ESD-safe surface</li>
+</ul>
+</div>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
+<p>Once your hardware is assembled and tested:</p>
+<ol>
+<li><a href="code.md">Review the Component Code</a> to understand the software</li>
+<li><a href="cdk.md">Set up CDK Infrastructure</a> to provision AWS resources</li>
+<li><a href="deployment.md">Deploy the Component</a> to your Raspberry Pi</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.instant.progress"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
